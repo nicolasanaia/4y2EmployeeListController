@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Livro;
+use App\Entity\Employee;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,12 +15,16 @@ class HomeController extends AbstractController
      */
     public function index(): Response
     {
-        $cleanCode = new Livro("Clean Code", 200, 130.40);
-        $ddd = new Livro("Domain Driven Design", 700, 530.40);
-        $livros = [$cleanCode, $ddd];
+        $nicolas = new Employee("Nicolas Anaia", "Intern", 22);
+        $rafael = new Employee("Rafael Sakamoto", "Intern", 33);
+        $artur = new Employee("Artur Sampaio", "Intern", 22);
+        $anni = new Employee("Anielly Lemos", "Intern", 22);
+        $joao = new Employee("João Paulo", "Intern", 26);
+
+        $employee = [$nicolas, $rafael, $artur, $anni, $joao];
 
         return $this->render('home/index.html.twig', [
-            "livros" => $livros
+            "employee" => $employee
         ]);
     }
 }

@@ -5,15 +5,19 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Livros do clube do livro</title>
+    <title>4you2 Employees</title>
     <style>
+        body {
+            background-color: rgb(31, 31, 31);
+            color: white;
+        }
         form, table {
-            width: 50%;
+            width: 35%;
             margin: auto;
             border: 1px solid #ccc;
             padding: 50px;
             box-sizing: border-box;
-            border-radius: 10px;
+            border-radius: 5px;
         }
         form > div {
             display: flex;
@@ -24,54 +28,63 @@
             margin: 10px;
         }
         form > div > label {
-            font-size: 18pt;
+            font-size: 15pt;
         }
         form > div > input {
             margin-top: 15px;
-            font-size: 18pt;
+            font-size: 15pt;
             padding: 5px 10px;
+            color: (143, 143, 143);
         }
         table {
             margin-top: 15px;
+            text-align: center;
         }
         thead th {
-            background: #333;
+            background: rgb(26, 26, 26);
             color: #fff;
         }
+        thead tr th:first-child {
+            width:40%;
+        }
+        tr td:first-child { 
+            text-align: left; 
+            }
+        
     </style>
 </head>
 <body>
     <form>
         <div>
-            <label>Nome do livro</label>
+            <label>Employee Name</label>
             <input type="text" />
         </div>
         <div>
-            <label>Quantidade de páginas</label>
+            <label>Position</label>
+            <input type="text" />
+        </div>
+        <div>
+            <label>Age</label>
             <input type="number" />
         </div>
         <div>
-            <label>Valor</label>
-            <input type="text" />
-        </div>
-        <div>
-            <input type="submit" value="Cadastrar"/>
+            <input type="submit" value="Save"/>
         </div>
     </form>
     <table>
         <thead>
             <tr>
-                <th>Nome do livro</th>
-                <th>Quantidade de páginas</th>
-                <th>Valor</th>
+                <th>Employee Name</th>
+                <th>Position</th>
+                <th>Age</th>
             </tr>
         </thead>
         <tbody>
-            {% for livro in livros %}
+            {% for employee in employee %}
             <tr>
-                <td>{{ livro.nome }}</td>
-                <td>{{livro.qtdPaginas}}</td>
-                <td>R$ {{livro.valor}}</td>
+                <td>{{employee.name}}</td>
+                <td>{{employee.position}}</td>
+                <td>{{employee.age}}</td>
             </tr>
             {% endfor %}
         </tbody>

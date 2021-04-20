@@ -1,21 +1,41 @@
 <?php
 
-
 namespace App\Entity;
+use App\Repository\EmployeeRepository;
+use Doctrine\ORM\Mapping as ORM;
+
+
+/**
+ * @ORM\Entity(repositoryClass=EmployeeRepository::class)
+ * @ORM\Table(name="employee")
+ */
 
 
 class Employee
 {
-    private string $nome;
+
+    /**
+ * @ORM\Id
+ * @ORM\Column(type="integer")
+ * @ORM\GeneratedValue
+ */
+
+    private int $id;
+
+    /** @ORM\Column(type="string", nullable=false) */
+    private string $name;
+    /** @ORM\Column(type="string", nullable=false) */
     private string $position;
+    /** @ORM\Column(type="integer", nullable=false) */
     private int $age;
 
     /**
-     * Livro constructor.
+     * Employee constructor.
      * @param string $name
      * @param string $position
      * @param int $age
      */
+
     public function __construct(string $name, string $position, int $age)
     {
         $this->name = $name;
@@ -23,6 +43,21 @@ class Employee
         $this->age = $age;
     }
 
+        /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId(string $id): void
+    {
+        $this->id = $id;
+    }
 
     /**
      * @return string

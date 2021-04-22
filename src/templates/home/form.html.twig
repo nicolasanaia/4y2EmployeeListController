@@ -87,15 +87,15 @@
     <div>
         <img class="lableDiv" src="/Assets/img/4Y2-fundo-escuro.svg" width="20%"/>
         <label>Employee's name</label>
-        <input class="label" type="text" name="name" id="name" value="{{ employee.name }}"/>
+        <input class="label" type="text" name="name" id="name" value="{{ employee.name }}" required/>
     </div>
     <div>
         <label>Position</label>
-        <input class="label" type="text" name="position" id="position" value="{{ employee.position }}"/>
+        <input class="label" type="text" name="position" id="position" value="{{ employee.position }}" required/>
     </div>
     <div>
         <label>Age</label>
-        <input class="label" type="number" name="age" id="age" value="{{ employee.age }}"/>
+        <input class="label" type="number" name="age" id="age" value="{{ employee.age }}" required/>
     </div>
     <div>
         <input type="submit" value="Save "/>

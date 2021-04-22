@@ -33,24 +33,24 @@
         }
         form > div > input {
             margin-top: 15px;
-            font-size: 15pt;
-            padding: 5px 10px;
+            font-size: 13pt;
+            padding: 5px 5px;
             color: rgb(0, 0, 0);
+            border-radius: 10px;
         }
-        table {
-            margin-top: 15px;
+        .message{
             text-align: center;
+            padding: 20px;
         }
-        thead th {
-            background: rgb(17, 16, 16);
-            color: #fff;
+        .label{
+            border-color: #9db4f1;
         }
-        thead tr th:first-child {
-            width:40%;
+        .label{
+            border-color: #9db4f1;
         }
-        tr td:first-child { 
-            text-align: left; 
-            }
+        .label{
+            border-color: #9db4f1;
+        }
         .message{
             text-align: center;
             padding: 20px;
@@ -82,15 +82,15 @@
 <form action="{{ path('edit_save', { 'id' : employee.id }) }}" onsubmit="return ageValidation()" method="post">
     <div>
         <label>Employee's name</label>
-        <input type="text" name="name" id="name" value="{{ employee.name }}"/>
+        <input class="label" type="text" name="name" id="name" value="{{ employee.name }}"/>
     </div>
     <div>
         <label>Position</label>
-        <input type="text" name="position" id="position" value="{{ employee.position }}"/>
+        <input class="label" type="text" name="position" id="position" value="{{ employee.position }}"/>
     </div>
     <div>
         <label>Age</label>
-        <input type="number" name="age" id="age" value="{{ employee.age }}"/>
+        <input class="label" type="number" name="age" id="age" value="{{ employee.age }}"/>
     </div>
     <div>
         <input type="submit" value="Save "/>

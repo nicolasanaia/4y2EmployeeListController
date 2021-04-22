@@ -8,13 +8,13 @@
     <title>4you2 Employees</title>
     <style>
         body {
-            background-color: rgb(31, 31, 31);
+            background-color: rgb(12, 11, 11);
             color: white;
         }
         form, table {
             width: 35%;
             margin: auto;
-            border: 1px solid #ccc;
+            border: 1px solid #0980ff;
             padding: 50px;
             box-sizing: border-box;
             border-radius: 5px;
@@ -34,14 +34,14 @@
             margin-top: 15px;
             font-size: 15pt;
             padding: 5px 10px;
-            color: (143, 143, 143);
+            color: rgb(0, 0, 0);
         }
         table {
             margin-top: 15px;
             text-align: center;
         }
         thead th {
-            background: rgb(26, 26, 26);
+            background: #0a2849;
             color: #fff;
         }
         thead tr th:first-child {
@@ -50,27 +50,66 @@
         tr td:first-child { 
             text-align: left; 
             }
-        
+        .text-danger {
+            color: #bf6262;
+        }
+        .edit-txt {
+            color: #1d70af;
+        }
+        .text-danger:hover {
+            color: #5e5e5e;
+        }
+        .edit-txt:hover {
+            color: #5e5e5e;
+        }
+        .nameLabel{
+            border-color: #0980ff;
+        }
+        .positionLabel{
+            border-color: #0980ff;
+        }
+        .ageLabel{
+            border-color: #0980ff;
+        }
+        .message{
+            text-align: center;
+            padding: 20px;
+        }
     </style>
+    <script>
+        function ageValidation(){
+
+            const age = document.getElementById("age").value;
+            const position = document.getElementById("position").value;
+
+            if(age < 18 && position !== "Apprentice") {
+            alert("The employee needs to be at least 18 years old.");
+            return false;
+        }
+        else {
+            return true;
+        }
+        }
+    </script>
 </head>
 <body>
     {% for message in app.flashes('message') %}
-    <h2>
+    <div class="message">
         {{ message }}
-    </h2>
+    </div>
     {% endfor %}
-    <form action="/addemployee" method="post">
+    <form action="{{ path('addEmployee') }}" onsubmit="return ageValidation()" method="post">
         <div>
-            <label>Employee Name</label>
-            <input type="text" name="name"/>
+            <label>Employee's Name</label>
+            <input class="nameLabel" id="name" type="text" name="name" required/>
         </div>
         <div>
             <label>Position</label>
-            <input type="text" name="position"/>
+            <input class="positionLabel" id="position" type="text" name="position" required/>
         </div>
         <div>
             <label>Age</label>
-            <input type="number" name="age"/>
+            <input class="ageLabel" id="age" type="number" name="age" required/>
         </div>
         <div>
             <input type="submit" value="Save"/>
@@ -79,9 +118,10 @@
     <table>
         <thead>
             <tr>
-                <th>Employee Name</th>
+                <th>Employee's Name</th>
                 <th>Position</th>
                 <th>Age</th>
+                <th>Options</th>
             </tr>
         </thead>
         <tbody>
@@ -90,6 +130,11 @@
                 <td>{{employee.name}}</td>
                 <td>{{employee.position}}</td>
                 <td>{{employee.age}}</td>
+                <td>
+                    <a class="edit-txt" href="{{ path('edit', { 'id': employee.id}) }}">edit</a>
+                    <a>    |   </a>
+                    <a class="text-danger" href="{{ path('remove', { 'id': employee.id}) }}">remove</a>
+                </td>
             </tr>
             {% endfor %}
         </tbody>

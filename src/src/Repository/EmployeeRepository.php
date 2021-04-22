@@ -20,4 +20,13 @@ class EmployeeRepository extends ServiceEntityRepository
         $em->commit();
         $em->flush();
     }
+
+    public function remove(Employee $employee)
+    {
+        $em = $this->getEntityManager();
+        $em->beginTransaction();
+        $em->remove($employee);
+        $em->commit();
+        $em->flush();
+    }
 }

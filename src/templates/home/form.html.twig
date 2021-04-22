@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>4you2 Employees</title>
+    <style>
+        body {
+            background-color: rgb(12, 11, 11);
+            color: white;
+            padding-top: 200px;
+        }
+        form, table {
+            width: 35%;
+            margin: auto;
+            border: 1px solid #0980ff;
+            padding: 50px;
+            box-sizing: border-box;
+            border-radius: 5px;
+        }
+        form > div {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 10px;
+        }
+        form > div > label {
+            font-size: 15pt;
+        }
+        form > div > input {
+            margin-top: 15px;
+            font-size: 15pt;
+            padding: 5px 10px;
+            color: rgb(0, 0, 0);
+        }
+        table {
+            margin-top: 15px;
+            text-align: center;
+        }
+        thead th {
+            background: rgb(17, 16, 16);
+            color: #fff;
+        }
+        thead tr th:first-child {
+            width:40%;
+        }
+        tr td:first-child { 
+            text-align: left; 
+            }
+        .message{
+            text-align: center;
+            padding: 20px;
+        }
+        
+    </style>
+    <script>
+        function ageValidation(){
+
+            const age = document.getElementById("age").value;
+            const position = document.getElementById("position").value;
+
+            if(age < 18 && position !== "Apprentice") {
+                alert("The employee needs to be at least 18 years old.");
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+    </script>
+</head>
+<body>
+{% for message in app.flashes('message') %}
+    <div class="message">
+        {{ message }}
+    </div>
+{% endfor %}
+<form action="{{ path('edit_save', { 'id' : employee.id }) }}" onsubmit="return ageValidation()" method="post">
+    <div>
+        <label>Employee's name</label>
+        <input type="text" name="name" id="name" value="{{ employee.name }}"/>
+    </div>
+    <div>
+        <label>Position</label>
+        <input type="text" name="position" id="position" value="{{ employee.position }}"/>
+    </div>
+    <div>
+        <label>Age</label>
+        <input type="number" name="age" id="age" value="{{ employee.age }}"/>
+    </div>
+    <div>
+        <input type="submit" value="Save "/>
+    </div>
+</form>
+</body>
+</html>

@@ -64,36 +64,29 @@
         .edit-txt:hover {
             color: #5e5e5e;
         }
-        .nameLabel{
-            border-color: #9db4f1;
-        }
-        .positionLabel{
-            border-color: #9db4f1;
-        }
-        .ageLabel{
-            border-color: #9db4f1;
-        }
         .message{
             text-align: center;
             padding: 20px;
         }
-        .lableDiv{
-            margin-bottom: 20px;
+        .save{
+            margin: auto;
+            text-align: center;
         }
+
     </style>
     <script>
         function ageValidation(){
-
-            const age = document.getElementById("age").value;
-            const position = document.getElementById("position").value;
+            console.log("Hello world")
+            const age = document.getElementById("employee_age").value;
+            const position = document.getElementById("employee_position").value;
 
             if(age < 18 && position !== "Apprentice") {
-            alert("The employee needs to be at least 18 years old.");
-            return false;
-        }
-        else {
-            return true;
-        }
+                alert("The employee needs to be at least 18 years old.");
+                return false;
+            }
+            else {
+                return true;
+            }
         }
     </script>
 </head>
@@ -103,24 +96,30 @@
         {{ message }}
     </div>
     {% endfor %}
-    <form action="{{ path('addEmployee') }}" onsubmit="return ageValidation()" method="post">
-        <div>
-            <img class="lableDiv" src="/Assets/img/4Y2-fundo-escuro.svg" width="20%"/>
-            <label>Employee's Name</label>
-            <input class="nameLabel" id="name" type="text" name="name" required/>
-        </div>
-        <div>
-            <label>Position</label>
-            <input class="positionLabel" id="position" type="text" name="position" required/>
-        </div>
-        <div>
-            <label>Age</label>
-            <input class="ageLabel" id="age" type="number" name="age" required/>
-        </div>
-        <div>
-            <input class="save" type="submit" value="Save"/>
-        </div>
-    </form>
+    {% block javascripts %}
+    <script>
+        function ageValidation(){
+        console.log("Hello world")
+        const age = document.getElementById("employee_age").value;
+        const position = document.getElementById("employee_position").value;
+
+        if(age < 18 && position !== "Apprentice") {
+        alert("The employee needs to be at least 18 years old.");
+        return false;
+    }
+        else {
+        return true;
+    }
+    }
+    </script>
+    {% endblock %}
+    {{ form_start(formEmployee,{'action': path('addEmployee')}) }}
+    {{ form_errors(formEmployee) }}
+    {{ form_widget(formEmployee) }}
+
+            <input class="save" type="submit" value="Save" onsubmit="ageValidation()" />
+
+        {{ form_end(formEmployee) }}
     <table>
         <thead>
             <tr>
@@ -145,5 +144,6 @@
             {% endfor %}
         </tbody>
     </table>
+<script src="/Assets/js/AgeValidator.js"></script>
 </body>
 </html>

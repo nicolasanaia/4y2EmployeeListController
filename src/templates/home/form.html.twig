@@ -43,23 +43,11 @@
             text-align: center;
             padding: 20px;
         }
-        .label{
-            border-color: #9db4f1;
-        }
-        .label{
-            border-color: #9db4f1;
-        }
-        .label{
-            border-color: #9db4f1;
-        }
         .message{
             text-align: center;
             padding: 20px;
         }
-        .lableDiv{
-            margin-bottom: 20px;
-        }
-        
+
     </style>
     <script>
         function ageValidation(){
@@ -83,23 +71,10 @@
         {{ message }}
     </div>
 {% endfor %}
-<form action="{{ path('edit_save', { 'id' : employee.id }) }}" onsubmit="return ageValidation()" method="post">
-    <div>
-        <img class="lableDiv" src="/Assets/img/4Y2-fundo-escuro.svg" width="20%"/>
-        <label>Employee's name</label>
-        <input class="label" type="text" name="name" id="name" value="{{ employee.name }}" required/>
-    </div>
-    <div>
-        <label>Position</label>
-        <input class="label" type="text" name="position" id="position" value="{{ employee.position }}" required/>
-    </div>
-    <div>
-        <label>Age</label>
-        <input class="label" type="number" name="age" id="age" value="{{ employee.age }}" required/>
-    </div>
-    <div>
-        <input type="submit" value="Save "/>
-    </div>
-</form>
+    {{ form_start(formEmployee, {'action': path('edit_save', { 'id' : employee.id })}) }}
+        {{ form_widget(formEmployee) }}
+
+        <input type="submit" value="Save" />
+    {{ form_end(formEmployee) }}
 </body>
 </html>

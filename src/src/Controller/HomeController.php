@@ -2,13 +2,17 @@
 
 namespace App\Controller;
 
+use App\Form\EmployeeType;
 use App\Entity\Employee;
+use Doctrine\ORM\EntityRepository;
 use App\Repository\EmployeeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use function App\Validator\ageValidator;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class HomeController extends AbstractController
 {
@@ -18,10 +22,11 @@ class HomeController extends AbstractController
 
     public function index(EmployeeRepository $employeeRepository): Response
     {
-        $employee = $employeeRepository -> findAll();
-
+        $employee = $employeeRepository->findAll();
+        $form = $this->createForm(EmployeeType::class);
         return $this->render('home/index.html.twig', [
-            "employee" => $employee
+            "employee" => $employee,
+            "formEmployee" => $form->createView()
         ]);
     }
 
@@ -29,18 +34,28 @@ class HomeController extends AbstractController
      * @Route("/addemployee", name="addEmployee")
      */
 
-    public function addEmployee(Request $request, EmployeeRepository $employeeRepository){
-        $name = $request->get('name');
-        $position = $request->get('position');
-        $age = $request->get('age');
+    public function addEmployee(Request $request, EmployeeRepository $employeeRepository) {
+        $employee = $employeeRepository->findAll();
 
-        $employee = new Employee($name, $position, $age);
+        $form = $this->createForm(EmployeeType::class);
+        $form->handleRequest($request);
+        $employee = $form->getData();
+
+        if($form->isValid()){
         $employeeRepository->save($employee);
-        
+        $this->addFlash("message", "Employee added successfully");
 
-        $this->addFlash("message", "Employee registered successfully");
         return $this->redirectToRoute("home");
-    }
+        }
+        else {
+            $this->addFlash("message", "Please, insert the correct info");
+            return $this->render('home/index.html.twig', [
+                "employee" => $employee,
+                "formEmployee" => $form->createView()
+            ]);
+        }
+        }
+
 
     /**
      * @Route("/edit/{id}", name="edit")
@@ -48,8 +63,10 @@ class HomeController extends AbstractController
 
     public function edit(Employee $employee): Response
     {
+        $form = $this->createForm(EmployeeType::class, $employee);
         return $this->render('home/form.html.twig', [
-            "employee" => $employee
+            "employee" => $employee,
+            "formEmployee" => $form->createView()
         ]);
     }
 
@@ -58,20 +75,23 @@ class HomeController extends AbstractController
      */
     public function saveEdition(Request $request, Employee $employee, EmployeeRepository $employeeRepository): Response
     {
-        $name = $request->get('name');
-        $position = $request->get('position');
-        $age = $request->get('age');
+        $form = $this->createForm(EmployeeType::class, $employee);
+        $form->handleRequest($request);
+        $employee = $form->getData();
 
-        $employee->setName($name);
-        $employee->setPosition($position);
-        $employee->setAge($age);
+        if($form->isValid()) {
+            $employeeRepository->save($employee);
+            $this->addFlash("message", "Employee added successfully");
 
-        $employeeRepository->save($employee);
-
-        $this->addFlash("message", "Employee edited successfully");
-
-        return $this->redirectToRoute("home");
-
+            return $this->redirectToRoute("home");
+        }
+        else {
+            $this->addFlash("message", "Please, insert the correct info");
+            return $this->render('home/form.html.twig', [
+                "employee" => $employee,
+                "formEmployee" => $form->createView()
+            ]);
+        }
     }
 
     /**

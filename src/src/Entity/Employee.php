@@ -3,6 +3,7 @@
 namespace App\Entity;
 use App\Repository\EmployeeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -22,28 +23,30 @@ class Employee
 
     private int $id;
 
-    /** @ORM\Column(type="string", nullable=false) */
+    /** @ORM\Column(type="string", nullable=false)
+     *  @Assert\NotBlank
+     * @Assert\Type(type="string")
+     */
     private string $name;
-    /** @ORM\Column(type="string", nullable=false) */
+    /** @ORM\Column(type="string", nullable=false)
+    *   @Assert\NotBlank
+     * @Assert\Choice({"Sr Developer", "Jr Developer", "Apprentice", "Developer", "Intern", "CTO"})
+    */
     private string $position;
-    /** @ORM\Column(type="integer", nullable=false) */
+    /** @ORM\Column(type="integer", nullable=false)
+     *  @Assert\NotBlank
+     *  @Assert\GreaterThanOrEqual(
+     *     value = 18
+     *)
+     * @Assert\Type(
+     * type="integer",
+     * message="The value is not valid."
+     * )
+     *
+     */
     private int $age;
 
     /**
-     * Employee constructor.
-     * @param string $name
-     * @param string $position
-     * @param int $age
-     */
-
-    public function __construct(string $name, string $position, int $age)
-    {
-        $this->name = $name;
-        $this->position = $position;
-        $this->age = $age;
-    }
-
-        /**
      * @return int
      */
     public function getId(): int

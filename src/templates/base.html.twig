@@ -1,9 +1,51 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <a class="button" href="/grade" type="button">Grade</a>
+        <a class="button" href="/satisfaction" type="button">Satisfaction</a>
+        <a class="button" href="/students" type="button">Students</a>
+
+
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
+        <style>
+            body{
+                background-color: rgb(12, 11, 11);
+                color: white;
+                text-align: center;
+            }
+            a{
+                color: #85b5db;
+            }
+            a:hover{
+                color: #5a4e4e;
+            }
+            table{
+                display: flex;
+                flex: 1;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                width: 35%;
+                margin: auto;
+                border: 1px solid #0980ff;
+                padding: 50px;
+                box-sizing: border-box;
+                border-radius: 5px;
+            }
+            thead{
+                padding: 15px 15px;
+            }
+            .button{
+                background-color: #dbdbdb;
+                border-radius: 3px;
+                padding: 5px;
+                margin: 5px;
+                color: #243a4b;;
+            }
+
+        </style>
     </head>
     <body>
         {% block body %}{% endblock %}

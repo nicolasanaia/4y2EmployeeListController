@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Employee
 {
 
-    /**
+ /**
  * @ORM\Id
  * @ORM\Column(type="integer")
  * @ORM\GeneratedValue
@@ -23,14 +23,14 @@ class Employee
 
     private int $id;
 
-    /** @ORM\Column(type="string", nullable=false)
+     /** @ORM\Column(type="string", nullable=false)
      *  @Assert\NotBlank
      * @Assert\Type(type="string")
      */
     private string $name;
     /** @ORM\Column(type="string", nullable=false)
     *   @Assert\NotBlank
-     * @Assert\Choice({"Sr Developer", "Jr Developer", "Apprentice", "Developer", "Intern", "CTO"})
+    * @Assert\Choice({"Sr Developer", "Jr Developer", "Apprentice", "Developer", "Intern", "CTO"})
     */
     private string $position;
     /** @ORM\Column(type="integer", nullable=false)

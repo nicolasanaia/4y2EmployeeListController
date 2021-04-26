@@ -1,0 +1,104 @@
+<?php
+
+namespace App\Entity;
+
+use App\Repository\GradeRepository;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity(repositoryClass=GradeRepository::class)
+ */
+class Grade
+{
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     */
+    private $studentName;
+
+    /**
+     * @ORM\Column(type="float")
+     * @Assert\NotBlank
+     * @Assert\LesserThanOrEqual(
+     * value = 10
+     *)
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 10,
+     *      notInRangeMessage = "You must insert between {{ min }} and {{ max }}",
+     * )
+     */
+    private $studentGrade;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     */
+    private $teacherName;
+
+    /**
+     * @ORM\Column(type="integer")
+     * @Assert\NotBlank
+     */
+    private $testNumber;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getStudentName(): ?string
+    {
+        return $this->studentName;
+    }
+
+    public function setStudentName(string $studentName): self
+    {
+        $this->studentName = $studentName;
+
+        return $this;
+    }
+
+    public function getStudentGrade(): ?float
+    {
+        return $this->studentGrade;
+    }
+
+    public function setStudentGrade(float $studentGrade): self
+    {
+        $this->studentGrade = $studentGrade;
+
+        return $this;
+    }
+
+    public function getTeacherName(): ?string
+    {
+        return $this->teacherName;
+    }
+
+    public function setTeacherName(string $teacherName): self
+    {
+        $this->teacherName = $teacherName;
+
+        return $this;
+    }
+
+    public function getTestNumber(): ?int
+    {
+        return $this->testNumber;
+    }
+
+    public function setTestNumber(int $testNumber): self
+    {
+        $this->testNumber = $testNumber;
+
+        return $this;
+    }
+}

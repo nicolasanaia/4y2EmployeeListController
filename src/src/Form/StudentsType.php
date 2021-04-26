@@ -6,6 +6,7 @@ use App\Entity\Students;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class StudentsType extends AbstractType
 {
@@ -13,7 +14,7 @@ class StudentsType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('birthDate')
+            ->add('birthDate', DateType::class, ['years' => range(1910, 2015)])
             ->add('cpf')
             ->add('premiumStudentPlan')
         ;

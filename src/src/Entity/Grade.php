@@ -27,9 +27,6 @@ class Grade
     /**
      * @ORM\Column(type="float")
      * @Assert\NotBlank
-     * @Assert\LesserThanOrEqual(
-     * value = 10
-     *)
      * @Assert\Range(
      *      min = 0,
      *      max = 10,
@@ -47,6 +44,9 @@ class Grade
     /**
      * @ORM\Column(type="integer")
      * @Assert\NotBlank
+     * @Assert\GreaterThanOrEqual (
+     *     value = 1
+     *)
      */
     private $testNumber;
 

@@ -27,6 +27,9 @@ class Satisfaction
     /**
      * @ORM\Column(type="integer")
      * @Assert\NotBlank
+     * @Assert\GreaterThanOrEqual (
+     *     value = 1
+     *)
      */
     private $classRated;
 

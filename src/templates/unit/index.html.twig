@@ -10,7 +10,8 @@
             <tr>
                 <th>Id</th>
                 <th>Name</th>
-                <th>actions</th>
+                <th>Name</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -18,6 +19,7 @@
             <tr>
                 <td>{{ unit.id }}</td>
                 <td>{{ unit.name }}</td>
+                <td>{{ unit.students|lenght }}</td>
                 <td>
                     <a href="{{ path('unit_show', {'id': unit.id}) }}">show</a>
                     <a href="{{ path('unit_edit', {'id': unit.id}) }}">edit</a>

@@ -37,9 +37,19 @@ class Students
     private $cpf;
 
     /**
+     * @ORM\OneToOne(targetEntity="Address", mappedBy="students", cascade={"ALL"})
+     */
+    private Address $address;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private $premiumStudentPlan;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Unit::class, inversedBy="students")
+     */
+    private $unit;
 
     public function getId(): ?int
     {
@@ -93,4 +103,34 @@ class Students
 
         return $this;
     }
+
+    /**
+     * @return Address
+     */
+    public function getAddress(): Address
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param Address $address
+     */
+    public function setAddress(Address $address): void
+    {
+        $this->address = $address;
+        $address->setStudents($this);
+    }
+
+    public function getUnit(): ?Unit
+    {
+        return $this->unit;
+    }
+
+    public function setUnit(?Unit $unit): self
+    {
+        $this->unit = $unit;
+
+        return $this;
+    }
+
 }

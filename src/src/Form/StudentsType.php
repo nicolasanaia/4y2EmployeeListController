@@ -17,6 +17,8 @@ class StudentsType extends AbstractType
             ->add('birthDate', DateType::class, ['years' => range(1910, 2015)])
             ->add('cpf')
             ->add('premiumStudentPlan')
+            ->add('address', AddressType::class)
+            ->add('unit')
         ;
     }
 

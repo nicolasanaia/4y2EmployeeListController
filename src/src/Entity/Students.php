@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\StudentsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -50,6 +52,16 @@ class Students
      * @ORM\ManyToOne(targetEntity=Unit::class, inversedBy="students")
      */
     private $unit;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=StudentsClass::class, mappedBy="students")
+     */
+    private $studentsClasses;
+
+    public function __construct()
+    {
+        $this->studentsClasses = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -131,6 +143,37 @@ class Students
         $this->unit = $unit;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|StudentsClass[]
+     */
+    public function getStudentsClasses(): Collection
+    {
+        return $this->studentsClasses;
+    }
+
+    public function addStudentsClass(StudentsClass $studentsClass): self
+    {
+        if (!$this->studentsClasses->contains($studentsClass)) {
+            $this->studentsClasses[] = $studentsClass;
+            $studentsClass->addStudent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStudentsClass(StudentsClass $studentsClass): self
+    {
+        if ($this->studentsClasses->removeElement($studentsClass)) {
+            $studentsClass->removeStudent($this);
+        }
+
+        return $this;
+    }
+
+    function __toString() {
+        return $this->name;
     }
 
 }

@@ -19,6 +19,7 @@ class StudentsType extends AbstractType
             ->add('premiumStudentPlan')
             ->add('address', AddressType::class)
             ->add('unit')
+            ->add('studentsClasses')
         ;
     }
 

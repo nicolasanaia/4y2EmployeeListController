@@ -19,7 +19,7 @@
             <tr>
                 <td>{{ unit.id }}</td>
                 <td>{{ unit.name }}</td>
-                <td>{{ unit.students|lenght }}</td>
+                <td>{{ unit.students | length }}</td>
                 <td>
                     <a href="{{ path('unit_show', {'id': unit.id}) }}">show</a>
                     <a href="{{ path('unit_edit', {'id': unit.id}) }}">edit</a>

@@ -47,4 +47,12 @@ class StudentsRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function save(Students $student)
+    {
+        $em = $this->getEntityManager();
+        $em->beginTransaction();
+        $em->persist($student);
+        $em->commit();
+        $em->flush();
+    }
 }

@@ -58,9 +58,15 @@ class Students
      */
     private $studentsClasses;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ViewHistory::class, mappedBy="student", cascade={"persist"})
+     */
+    private $viewHistories;
+
     public function __construct()
     {
         $this->studentsClasses = new ArrayCollection();
+        $this->viewHistories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -174,6 +180,36 @@ class Students
 
     function __toString() {
         return $this->name;
+    }
+
+    /**
+     * @return Collection|ViewHistory[]
+     */
+    public function getViewHistories(): Collection
+    {
+        return $this->viewHistories;
+    }
+
+    public function addViewHistory(ViewHistory $viewHistory): self
+    {
+        if (!$this->viewHistories->contains($viewHistory)) {
+            $this->viewHistories[] = $viewHistory;
+            $viewHistory->setStudent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeViewHistory(ViewHistory $viewHistory): self
+    {
+        if ($this->viewHistories->removeElement($viewHistory)) {
+            // set the owning side to null (unless already changed)
+            if ($viewHistory->getStudent() === $this) {
+                $viewHistory->setStudent(null);
+            }
+        }
+
+        return $this;
     }
 
 }

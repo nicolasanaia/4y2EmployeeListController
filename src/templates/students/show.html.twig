@@ -29,6 +29,12 @@
             </tr>
         </tbody>
     </table>
+    <h2>Views History</h2>
+    {% for view in student.viewHistories %}
+
+        <p>{{ view }}</p>
+
+    {% endfor %}
 
     <a href="{{ path('students_index') }}">back to list</a>
 

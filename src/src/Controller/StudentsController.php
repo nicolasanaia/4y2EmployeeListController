@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Students;
+use App\Entity\ViewHistory;
 use App\Form\StudentsType;
 use App\Repository\StudentsRepository;
+use App\Service\LoggerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -43,8 +45,9 @@ class StudentsController extends AbstractController
     }
 
     #[Route('/{id}', name: 'students_show', methods: ['GET'])]
-    public function show(Students $student): Response
+    public function show(Students $student, LoggerService $loggerService): Response
     {
+        $loggerService->logView($student);
         return $this->render('students/show.html.twig', [
             'student' => $student,
         ]);
